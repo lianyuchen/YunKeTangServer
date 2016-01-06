@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.demo.cloudserver.entity.JsonBean;
 import com.demo.cloudserver.entity.StudentInfo;
 import com.demo.cloudserver.service.UserService;
 import com.demo.cloudserver.service.impl.UserServiceImpl;
@@ -19,6 +20,7 @@ import com.demo.cloudserver.service.impl.UserServiceImpl;
  */
 public class UserLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private JsonBean jsonBean;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -58,6 +60,8 @@ public class UserLoginServlet extends HttpServlet {
 		String user_name = request.getParameter("user_name");
 		// System.out.println(">>>"+ user_name);
 		String user_password = request.getParameter("user_password");
+		//String user = "lianyuchen";
+		//String pwd = "123";
 
 		if (null != user_name && null != user_password) {
 
@@ -66,11 +70,15 @@ public class UserLoginServlet extends HttpServlet {
 
 			if (null != studentInfo) {
 
+			    jsonBean = new JsonBean(200,"响应成功！",studentInfo);
 				//调用fastJSON进行解析
-				out.print(JSON.toJSONString(studentInfo));
+				out.print(JSON.toJSONString(jsonBean));
 			}
 		} else {
-			out.println("-1");
+		    jsonBean = new JsonBean(100,"请求失败！");
+
+            //调用fastJSON进行解析
+            out.print(JSON.toJSONString(jsonBean));
 		}
 	}
 
