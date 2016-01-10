@@ -8,6 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSON;
+import com.demo.cloudserver.entity.JsonBean;
+import com.demo.cloudserver.service.CourseService;
+import com.demo.cloudserver.service.impl.CourseServiceImpl;
+
 /**
  * Servlet implementation class AddClassinfoServlet
  */
@@ -44,13 +49,30 @@ public class CourseServlet extends HttpServlet {
 	    //设置字符编码
 	    request.setCharacterEncoding("utf-8");
 	    
-	    String coursename = request.getParameter("coursename");
-	    String coursetime = request.getParameter("coursetime");
-	    String courselocation = request.getParameter("courselocation");
+	    //String coursename = request.getParameter("coursename");
+	    //String coursetime = request.getParameter("coursetime");
+	    //String courselocation = request.getParameter("courselocation");
+	    
+	    String coursename = "JAVA";
+	    String coursetime = "45分钟";
+	    String courselocation = "软件学院B410";
 	    
 	    boolean isSuccess = false;
 	    
-	    //AddCourseInfoService addCourseInfoService = new A
+	    CourseService courseService = new CourseServiceImpl();
+	    
+	    isSuccess = courseService.add(coursename, coursetime, courselocation);
+	    
+	    if (isSuccess) {
+            
+	        JsonBean jsonBean = new JsonBean(200, "响应成功！");
+	        out.print(JSON.toJSON(jsonBean));
+	        
+        } else {
+
+            JsonBean jsonBean = new JsonBean(100, "请求失败！");
+            out.print(JSON.toJSON(jsonBean));
+        }
 	}
 
 }
