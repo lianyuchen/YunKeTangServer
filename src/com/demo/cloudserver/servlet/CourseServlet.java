@@ -53,7 +53,7 @@ public class CourseServlet extends HttpServlet {
 	    //String coursetime = request.getParameter("coursetime");
 	    //String courselocation = request.getParameter("courselocation");
 	    
-	    String coursename = "JAVA";
+	    String coursename = "Android";
 	    String coursetime = "45分钟";
 	    String courselocation = "软件学院B410";
 	    
